@@ -31,7 +31,7 @@ The source codes of the AMPLiT are available here, with an average **AUPRC indic
 
 **2.** Prepare the necessary dataset (training dataset, validation dataset, and test dataset), and their descriptors. For more details, please refer to the section of **Implementation details** below.
 
-**3.** Following the codes provided in "Train_AMP_identifier2.py" and running it in your local Spyder or other suitable environment directly, the training of AMPidentifier 2.0 will be smoothly performed.
+**3.** Following the codes provided in "Train_AMP_identifier2.py" and running it in your local Spyder or other suitable environment directly, the training of AMPLiT will be smoothly performed.
 
 ## Implementation details:
 
@@ -49,9 +49,9 @@ Or you can contact author **Sizhe Chen** for these documents if any problems occ
 
 **Notes:**
 
-Some old laptops may struggle to operate AMPLiT because of memory limitations (Intel i7-10875H CPU or better processor is recommended). In addition, you can also copy the codes and run AMPidentifier 2.0 on the Jupyter viewer deployed on the high-performance server (e.g. CPU: Xeon(R) Gold 6430, GPU: RTX 4090, RAM: 120GB).
+Some old laptops may struggle to operate AMPLiT because of memory limitations (Intel i7-10875H CPU or better processor is recommended). In addition, you can also copy the codes and run AMPLiT on the Jupyter viewer deployed on the high-performance server (e.g., CPU: Xeon(R) Gold 6430, GPU: RTX 4090, RAM: 120GB).
 
-We are preparing a detailed tutorial for both AMPidentifier 1.0 and AMPidentifier 2.0 (will be available soon). Please don't hesitate to contact us if you have any suggestions. Thank you for your attention.
+For any potential questions, please don't hesitate to contact us, and we are willing to provide necessary help. Thank you for your attention.
 
 The model core file is also being prepared and will be uploaded to GitHub soon
 
