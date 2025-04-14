@@ -83,7 +83,7 @@ X_val, y_train111,rawseq116, length = getMatrixLabelh(train_file_name, win1)
 
     #train_file_name = 'TrainingAMP.csv'  # Training dataset
     # win1 = 50
-    #X, T, rawseq, length = getMatrixLabelh(train_file_name, win1)
+    #X, T, rawseq, length = getMatrixLabelFingerprint(train_file_name, win1)
 
 
 X2 = np.load(file="Training_vector.npy")# Descriptor of Training dataset
