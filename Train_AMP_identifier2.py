@@ -28,9 +28,9 @@ import numpy as np
 from sklearn import metrics
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
-from utils1 import getMatrixLabel, Phos1,PhosB, PhosE, getMatrixInput, getMatrixInputh, getMatrixLabelFingerprint, getMatrixLabelh, plot_ROC, getMatrixLabelFingerprint1,getMatrixLabelnlp
+from utils1 import getMatrixLabel, Phos1,getMatrixLabelFingerprint, getMatrixLabelh, getMatrixLabelnlp
 from keras.optimizers import adam_v2
-from utils1 import channel_attenstion
+#from utils1 import channel_attenstion
 import matplotlib.pyplot as plt
 from keras.utils.vis_utils import plot_model
 import csv
