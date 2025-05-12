@@ -235,8 +235,8 @@ history = model1.fit([aaa[:43404],vector[:43404],bbb[:43404]], ddd[:43404], batc
     
 
 predictions_p = model1.predict([X1tt,ccc2,X2tt])#Evaluating the effects on Test dataset
-print(np.sum(predictions_p[:,1]>0.9))
-print(np.sum(predictions_p[:990,1]>0.5))
+print(np.sum(predictions_p[:,1]>0.9))#setting 0.9 as threshold
+print(np.sum(predictions_p[:990,1]>0.5))#setting 0.5 as threshold
 #Calculating the prediction performance and statistical results
 
 model1.load_weights('your_model_file_name.h5')
