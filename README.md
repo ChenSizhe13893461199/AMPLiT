@@ -27,7 +27,7 @@ The source codes of the AMPLiT are available here, with an average **AUPRC indic
 
 ## General utilization guidance:
 
-**1.** The deployment codes can be found in "Train_AMP_identifier2.py", with full details and annotations attached. Firstly, open "Train_AMP_identifier2.py" on your laptop (e.g. by Spyder) and introduce all the necessary packages aforementioned.
+**1.** The deployment codes can be found in "Train_AMP_identifier2.py", with full details and annotations attached. Firstly, open "Train_AMP_identifier2.py" on your laptop (e.g. by Spyder) and introduce all the necessary packages aforementioned (codes are available in the .py file).
 
 **2.** Prepare the necessary dataset (training dataset, validation dataset, and test dataset), and their descriptors. For more details, please refer to the section of **Implementation details** below.
 
