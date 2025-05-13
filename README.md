@@ -13,7 +13,7 @@ The source codes of the AMPLiT are available here, with an average **AUPRC indic
 
 ### Details of Using AMPLiT
 ### Requirements
-- python 3.9.7 or higher
+- python 3.9.7 or higher (recommend the version of 3.9.7)
 - keras==2.10.0
 - pandas==1.5.2
 - matplotlib==3.0.3
