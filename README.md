@@ -66,13 +66,13 @@ The computational block 3, a novel computational module, was mathematically desi
 
 Finally, by integration of all 3 computational blocks, our framework was deployed on a consumer-grade laptop (Intel i7-10875H CPU) and achieved high computational efficiency and the maintenance of predictive performance. AMPLiT (Model G) demonstrated remarkable performances (AUPRC: 0.9486±0.0003) parallel to AMPidentifier 1.0, and approximately 80% reduction in training time costs (3200±53 seconds).
 
+For more details on the previous tool AMPidentifier 1.0 (https://github.com/ChenSizhe13893461199/Fast-AMPs-Discovery-Projects), please refer to our previously published article: 
+
+[1] Sizhe Chen#, Huitang Qi#, Xingzhuo Zhu#, Tianxiang Liu, Yutin Fan, Qi Su, Qiuyu Gong*, Cangzhi Jia*, Tian Liu*. Screening and identification of antimicrobial peptides from the gut microbiome of cockroach _Blattella germanica_. **_Microbiome_** 2024, 12: 272. doi: **10.1186/s40168-024-01985-9**.
+
 ### Brief Introduction of Developers
 #### Developer Introduction
 
 **Sizhe Chen**, PhD Student (Medical Sciences) at Chinese University of Hong Kong (1155202847@link.cuhk.edu.hk). Supervisor: **Professor CHAN Ka Leung Francis**, **Professor Siew N.G.**, and **Research Assistant Professor Qi Su**. Welcome to contact **Sizhe Chen** via the aforementioned email if you have any questions or suggestions.
 
 This work is supervised by **Professor Siew N.G.**, **Professor Yang Sun**, and **Research Assistant Professor Qi Su**. The research work is primarily finished by **Sizhe Chen** (PhD student) and **Yue Yuan** (MPhil student) with equal contributions.
-
-For more details on the previous tool AMPidentifier 1.0 (https://github.com/ChenSizhe13893461199/Fast-AMPs-Discovery-Projects), please refer to our previously published article: 
-
-[1] Sizhe Chen#, Huitang Qi#, Xingzhuo Zhu#, Tianxiang Liu, Yutin Fan, Qi Su, Qiuyu Gong*, Cangzhi Jia*, Tian Liu*. Screening and identification of antimicrobial peptides from the gut microbiome of cockroach _Blattella germanica_. **_Microbiome_** 2024, 12: 272. doi: **10.1186/s40168-024-01985-9**.
