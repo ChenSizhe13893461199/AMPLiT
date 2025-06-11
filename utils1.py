@@ -683,7 +683,7 @@ def getMatrixLabelFingerprint(positive_position_file_name, window_size=51, empty
     o=0
     number=1
     index=0
-    #positive_position_file_name='contigs.csv'#'train_test1.csv'#'Antivirual.csv'#'测试集.csv'#'Non-AMPsfilter.csv'#'TrainingAMP.csv'#'需要预测的序列6.csv'#'需要预测的序列.csv'#'TrainingAMP.csv'#'测试集.csv'#'细菌素补充数据集.csv'#'TrainingAMP.csv'#'Extracellular space.csv'#'mitochondria.csv'#'Vesicle.csv'#'NonAMPtraining.csv'#'Negative50.csv'#'1.csv'#'Non-AMPsfilter.csv'#'Non-AMPsfilter.csv'#'Training1.csv'#'Non-AMPs.csv'#'验证数据集.csv'#'德国小蠊蛋白组.csv'#'美洲大蠊宏基因组AMPs未预测.csv'#'AMPs.csv'#'Training1T.csv'#'Non-AMPs.csv'#'AMPs.csv'#'Training1.csv'
+    #positive_position_file_name='contigs.csv'
     with open(positive_position_file_name, 'r') as rf:
       reader = csv.reader(rf)
       for row in reader:
