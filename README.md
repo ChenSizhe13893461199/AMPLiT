@@ -36,7 +36,11 @@ The source codes of the AMPLiT are available here, with an average **AUPRC indic
 
 This algorithm demands one-hot code matrix (50×20), word2vec matrix (50×20) and physical/chemical descriptors matrix (91×17) as input.
 
-The one-hot code, Word2Vec, and physicochemical matrix can be calculated by well-annotated codes (line 64-187) in "Train_AMP_identifier2.py" via using the three .csv documents aforementioned. In addition, the files containing pre-calculated physicochemical matrix and Word2Vec parametric file have also been prepared for users (https://www.jianguoyun.com/p/DXOt8h8Q84i6DRjZ5_gFIAA; please register an account for downloading, which is free), and users don't have to recalculate them again.
+The one-hot code, Word2Vec, and physicochemical matrix can be calculated by well-annotated codes (line 64-187) in "Train_AMP_identifier2.py" via using the three .csv documents aforementioned. 
+
+
+
+In addition, the files containing pre-calculated physicochemical matrix and Word2Vec parametric file have also been prepared for users (https://www.jianguoyun.com/p/DXOt8h8Q84i6DRjZ5_gFIAA; please register an account for downloading, which is free), and users don't have to recalculate them again.
 
 Or you can contact author **Sizhe Chen** for these documents if any problems occur during the download. We sincerely welcome any email consultation regarding our model, and we would like to provide technical support when necessary (e.g. model deployment, parameters fine-tuning, etc.).
 
