@@ -52,15 +52,15 @@ For example, you can calculate the physical/chemical descriptors matrix by code:
 
 And the pre-calculated physical/chemical descriptors matrixes (91×17) have been deposited in 3 .npy documents. You can directly load them by codes:
 
-```X2 = np.load(file="Training_vector.npy")# Descriptor of Training dataset```
-```X2tt = np.load(file="Test_vector.npy")# Descriptor of Test dataset```
+```X2 = np.load(file="Training_vector.npy")# Descriptor of Training dataset```\
+```X2tt = np.load(file="Test_vector.npy")# Descriptor of Test dataset```\
 ```X2_val = np.load(file="5810_vector.npy")# Descriptor of Validation dataset```
 
 
 For the Word2Vec descriptors, they can be calculated by the following codes:
 
-```X2 = np.load(file="Training_vector.npy")# Descriptor of Training dataset```
-```X2tt = np.load(file="Test_vector.npy")# Descriptor of Test dataset```
+```X2 = np.load(file="Training_vector.npy")# Descriptor of Training dataset```\
+```X2tt = np.load(file="Test_vector.npy")# Descriptor of Test dataset```\
 ```X2_val = np.load(file="5810_vector.npy")# Descriptor of Validation dataset```
 
 
