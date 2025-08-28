@@ -57,7 +57,7 @@ And the pre-calculated physical/chemical descriptors matrixes (91×17) have been
 ```X2_val = np.load(file="5810_vector.npy")# Descriptor of Validation dataset```
 
 
-For the Word2Vec descriptors, they can be calculated by the following codes:
+For the Word2Vec descriptors, they can be calculated by the following codes (Lines 132-187):
 
 ```wv = KeyedVectors.load_word2vec_format('word2vec11.bin', binary=True)```
 
