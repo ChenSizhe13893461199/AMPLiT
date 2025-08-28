@@ -63,7 +63,20 @@ For the Word2Vec descriptors, they can be calculated by the following codes:
 ```X2tt = np.load(file="Test_vector.npy")# Descriptor of Test dataset```\
 ```X2_val = np.load(file="5810_vector.npy")# Descriptor of Validation dataset```
 
+wv = KeyedVectors.load_word2vec_format('word2vec11.bin', binary=True)
 
+```vector_size=100 #the length of the vector```\
+```ccc = np.zeros((len(rawseq), 50, vector_size)) # the matrix for saving Word2Vec descriptors```\
+```for i in range(0,len(rawseq)):```\
+```    t=0```\
+```    for AA in rawseq[i]:```\
+```        ccc[i][t][:]=wv[AA]```\
+```        t=t+1```\
+```   for x in range(0,50-len(rawseq[i])):```\
+```        ccc[i][t][:]=-10**(-100000)```\
+```        t=t+1```\
+
+        
 In addition, the files containing pre-calculated physicochemical matrix and Word2Vec parametric file have also been prepared for users (https://www.jianguoyun.com/p/DXOt8h8Q84i6DRjZ5_gFIAA; please register an account for downloading, which is free), and users don't have to recalculate them again.
 
 Or you can contact author **Sizhe Chen** for these documents if any problems occur during the download. We sincerely welcome any email consultation regarding our model, and we would like to provide technical support when necessary (e.g. model deployment, parameters fine-tuning, etc.).
