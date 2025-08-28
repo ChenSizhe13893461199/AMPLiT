@@ -53,14 +53,14 @@ And the pre-calculated physical/chemical descriptors matrixes (91×17) have been
 ```X2 = np.load(file="Training_vector.npy")# Descriptor of Training dataset```\
 ```X2tt = np.load(file="Test_vector.npy")# Descriptor of Test dataset```\
 ```X2_val = np.load(file="5810_vector.npy")# Descriptor of Validation dataset```\
-\
+
 
 For the Word2Vec descriptors, they can be calculated by the following codes:\
 \
 ```X2 = np.load(file="Training_vector.npy")# Descriptor of Training dataset```\
 ```X2tt = np.load(file="Test_vector.npy")# Descriptor of Test dataset```\
 ```X2_val = np.load(file="5810_vector.npy")# Descriptor of Validation dataset```\
-\
+
 
 In addition, the files containing pre-calculated physicochemical matrix and Word2Vec parametric file have also been prepared for users (https://www.jianguoyun.com/p/DXOt8h8Q84i6DRjZ5_gFIAA; please register an account for downloading, which is free), and users don't have to recalculate them again.
 
