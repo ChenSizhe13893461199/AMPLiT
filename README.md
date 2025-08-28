@@ -26,7 +26,7 @@ The source codes of the AMPLiT are available here, with an average **AUPRC indic
 
 **3.** Following the codes provided in "Train_AMP_identifier2.py" and running it in your local Spyder or other suitable environment directly, the training of AMPLiT will be smoothly performed.
 
-## Implementation details:
+## Implementation details and guidances:
 
 **1.** The training sequences were deposited in the document TrainingAMP.csv
 
@@ -63,7 +63,7 @@ For the Word2Vec descriptors, they can be calculated by the following codes (Lin
 
 ```vector_size=100 #the length of the vector```\
 ```ccc = np.zeros((len(rawseq), 50, vector_size)) # the matrix for saving Word2Vec descriptors```\
-```for i in range(0,len(rawseq)):```\
+```for i in range(0,len(rawseq)):# rawseq contains the amino acid sequences of peptides```\
 ```    t=0```\
 ```    for AA in rawseq[i]:```\
 ```        ccc[i][t][:]=wv[AA]```\
