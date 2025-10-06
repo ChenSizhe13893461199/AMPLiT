@@ -69,7 +69,7 @@ Some old laptops may struggle to operate AMPLiT because of memory limitations (I
 
 For any potential questions, please don't hesitate to contact us, and we are willing to provide necessary help. Thank you for your attention.
 
-The model core file (utils.py) is temporarily pending public availability, and it will be uploaded to GitHub after manuscript submission (approximately before June 30th, 2025)
+The model core file (utils1.py) is temporarily pending public availability, and it will be uploaded to GitHub after manuscript submission (approximately before June 30th, 2025) (has been released)
 
 **Mathematical Details**
 
