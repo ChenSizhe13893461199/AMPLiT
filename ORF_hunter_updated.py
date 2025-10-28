@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Oct 26 19:53:17 2025
+Created on Tue Oct 28 19:53:17 2025
 
-updated according to valuable suggestions from reviewer
+updated according to suggestions from valuable suggestions from reviewer
 """
 
 import os
@@ -42,6 +42,15 @@ def translate_sequence(sequence, frame):
             protein.append(amino_acid)
     return ''.join(protein)
 
+def extract_dna_sequence(full_sequence, start_pos, end_pos, direction):
+    """Extract DNA sequence based on coordinates and direction"""
+    if direction == 'forward':
+        return full_sequence[start_pos:end_pos]
+    else:  # reverse
+        # For reverse strand, extract from original sequence and return as is
+        # The coordinates are already adjusted for the reverse complement
+        return full_sequence[start_pos:end_pos]
+
 def find_orfs_six_frame(sequence, min_aa_length=11, max_aa_length=50):
     """Find all ORFs using six-frame translation approach"""
     all_orfs = []
@@ -49,19 +58,19 @@ def find_orfs_six_frame(sequence, min_aa_length=11, max_aa_length=50):
     # Process three forward frames
     for frame in range(3):
         protein_seq = translate_sequence(sequence, frame)
-        orfs = extract_orfs_from_protein(protein_seq, frame, 'forward', min_aa_length, max_aa_length)
+        orfs = extract_orfs_from_protein(sequence, protein_seq, frame, 'forward', min_aa_length, max_aa_length)
         all_orfs.extend(orfs)
     
     # Process three reverse frames
     rev_comp = reverse_complement(sequence)
     for frame in range(3):
         protein_seq = translate_sequence(rev_comp, frame)
-        orfs = extract_orfs_from_protein(protein_seq, frame, 'reverse', min_aa_length, max_aa_length)
+        orfs = extract_orfs_from_protein(sequence, protein_seq, frame, 'reverse', min_aa_length, max_aa_length)
         all_orfs.extend(orfs)
     
     return all_orfs
 
-def extract_orfs_from_protein(protein_seq, frame, direction, min_length, max_length):
+def extract_orfs_from_protein(original_sequence, protein_seq, frame, direction, min_length, max_length):
     """Extract ORFs from translated protein sequence"""
     orfs = []
     start_positions = []
@@ -77,15 +86,24 @@ def extract_orfs_from_protein(protein_seq, frame, direction, min_length, max_len
                 orf_length = i - start
                 if min_length <= orf_length <= max_length:
                     orf_seq = protein_seq[start:i]
+                    
                     # Calculate DNA coordinates
                     dna_start = start * 3 + frame
-                    dna_end = i * 3 + frame
+                    dna_end = i * 3 + frame + 3  # Include stop codon
+                    
                     if direction == 'reverse':
-                        # For reverse strand, coordinates need to be adjusted
-                        dna_start, dna_end = dna_end, dna_start
+                        # For reverse strand, adjust coordinates to original sequence
+                        seq_len = len(original_sequence)
+                        dna_start_rev = seq_len - (start * 3 + frame + 3)
+                        dna_end_rev = seq_len - (i * 3 + frame)
+                        dna_start, dna_end = dna_start_rev, dna_end_rev
+                    
+                    # Extract DNA sequence
+                    dna_sequence = extract_dna_sequence(original_sequence, dna_start, dna_end, direction)
                     
                     orfs.append({
-                        'sequence': orf_seq,
+                        'protein_sequence': orf_seq,
+                        'dna_sequence': dna_sequence,
                         'length': orf_length,
                         'frame': frame,
                         'direction': direction,
@@ -117,30 +135,30 @@ def process_fasta_file(input_file, output_csv):
     # Process each sequence and find ORFs
     results = []
     for header, sequence in sequences.items():
-            orfs = find_orfs_six_frame(sequence)
-            for orf in orfs:
-                results.append({
-                    'header': header.strip(),
-                    'protein_sequence': orf['sequence'],
-                    'length': orf['length'],
-                    'frame': orf['frame'],
-                    'direction': orf['direction'],
-                    'dna_coords': f"{orf['dna_start']}-{orf['dna_end']}"
-                })
+        orfs = find_orfs_six_frame(sequence)
+        for orf in orfs:
+            results.append({
+                'header': header.strip(),
+                'protein_sequence': orf['protein_sequence'],
+                'dna_sequence': orf['dna_sequence'],
+                'length': orf['length'],
+                'frame': orf['frame'],
+                'direction': orf['direction'],
+                'dna_coords': f"{orf['dna_start']}-{orf['dna_end']}"
+            })
     
     # Write results to CSV
     with open(output_csv, 'w') as outfile:
-        outfile.write("Header,Protein_Sequence,Length_AA,Frame,Direction,DNA_Coordinates\n")
+        outfile.write("Header,Protein_Sequence,DNA_Sequence,Length_AA,Frame,Direction,DNA_Coordinates\n")
         for result in results:
-            outfile.write(f"{result['header']},{result['protein_sequence']},{result['length']},{result['frame']},{result['direction']},{result['dna_coords']}\n")
+            outfile.write(f"{result['header']},{result['protein_sequence']},{result['dna_sequence']},{result['length']},{result['frame']},{result['direction']},{result['dna_coords']}\n")
     
     print(f"Processed {len(sequences)} sequences, found {len(results)} ORFs")
     return results
 
 # Example usage
 if __name__ == "__main__":
-    input_fasta = "your_file.fasta"  # Replace with your input file
+    input_fasta = "your_input_sequence.fasta"  # Replace with your input file
     output_file = "orf_results.csv"  # Replace with your output file
     
-
     results = process_fasta_file(input_fasta, output_file)
