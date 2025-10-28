@@ -2,7 +2,7 @@
 """
 Created on Tue Oct 26 19:53:17 2025
 
-updated according to suggestions from valuable suggestions from reviewer
+updated according to valuable suggestions from reviewer
 """
 
 import os
@@ -139,8 +139,8 @@ def process_fasta_file(input_file, output_csv):
 
 # Example usage
 if __name__ == "__main__":
-    input_fasta = "SRR12557704.fasta"  # Replace with your input file
     input_fasta = "your_file.fasta"  # Replace with your input file
     output_file = "orf_results.csv"  # Replace with your output file
     
+
     results = process_fasta_file(input_fasta, output_file)
