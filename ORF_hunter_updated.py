@@ -57,6 +57,8 @@ def check_met_retention(protein_sequence):
     Met is retained when P1' position has bulky residues: I, Y, E, R.
     Returns: (should_retain_met, p1_position_aa)
     """
+    # Note: Initial Met residues are preserved when P1' position has bulky residues (Ile, Tyr, Glu, Arg).
+    # References: Protein N-terminal processing: substrate specificity of Escherichia coli and human methionine aminopeptidases. Biochemistry. 2010; 49(26): 5588–99. https://doi.org/10.1021/bi1005464
     if len(protein_sequence) < 2:
         return False, None
     
@@ -202,6 +204,7 @@ if __name__ == "__main__":
     output_file = "orf_results.csv"  # Replace with your output file
     
     results = process_fasta_file(input_fasta, output_file)
+
 
 
 
