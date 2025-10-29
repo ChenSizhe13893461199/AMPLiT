@@ -2,7 +2,7 @@
 """
 Created on Tue Oct 28 19:53:17 2025
 
-Updated ORF prediction
+Updated ORF prediction with Met processing
 """
 
 import os
@@ -70,6 +70,18 @@ def check_met_retention(protein_sequence):
     
     return should_retain, p1_position_aa
 
+def process_protein_sequence(protein_sequence, met_retained):
+    """
+    Process protein sequence based on Met retention rule.
+    If Met should not be retained, remove the initial M.
+    """
+    if protein_sequence.startswith('M') and not met_retained:
+        # Remove initial M but keep the rest
+        return protein_sequence[1:]
+    else:
+        # Keep original sequence (either no initial M or Met should be retained)
+        return protein_sequence
+
 def find_orfs_six_frame(sequence, min_aa_length=11, max_aa_length=50):
     """Find all ORFs using six-frame translation approach"""
     all_orfs = []
@@ -104,9 +116,16 @@ def extract_orfs_from_protein(original_sequence, protein_seq, frame, direction, 
             for start in valid_starts:
                 orf_length = i - start
                 if min_length <= orf_length <= max_length:
-                    orf_seq = protein_seq[start:i]
+                    original_orf_seq = protein_seq[start:i]
                     
-                    # Calculate DNA coordinates
+                    # Check Met retention rule for AMPs
+                    met_retained, p1_aa = check_met_retention(original_orf_seq)
+                    
+                    # Process protein sequence based on Met retention
+                    processed_protein_seq = process_protein_sequence(original_orf_seq, met_retained)
+                    processed_length = len(processed_protein_seq)
+                    
+                    # Calculate DNA coordinates (always include the start codon)
                     if direction == 'forward':
                         dna_start = start * 3 + frame
                         dna_end = i * 3 + frame + 3  # Include stop codon
@@ -117,25 +136,25 @@ def extract_orfs_from_protein(original_sequence, protein_seq, frame, direction, 
                         dna_start = seq_len - (i * 3 + frame + 3)  # End position in original
                         dna_end = seq_len - (start * 3 + frame)    # Start position in original
                     
-                    # Extract DNA sequence
+                    # Extract DNA sequence (always includes the start codon)
                     dna_sequence = extract_dna_sequence(original_sequence, dna_start, dna_end, direction)
                     
-                    # Check Met retention rule for AMPs
-                    met_retained, p1_aa = check_met_retention(orf_seq)
-                    
                     orfs.append({
-                        'protein_sequence': orf_seq,
+                        'original_protein_sequence': original_orf_seq,  # Original sequence with M
+                        'protein_sequence': processed_protein_seq,      # Processed sequence (M removed if needed)
                         'dna_sequence': dna_sequence,
-                        'length': orf_length,
+                        'original_length': orf_length,                  # Original length including M
+                        'processed_length': processed_length,           # Length after potential M removal
                         'frame': frame,
                         'direction': direction,
                         'protein_start': start,
                         'protein_end': i,
                         'dna_start': dna_start,
                         'dna_end': dna_end,
-                        'met_retained': met_retained,  # Whether initial Met is retained
-                        'p1_position_aa': p1_aa,       # Amino acid at P1' position
-                        'has_initial_met': orf_seq.startswith('M')  # Starts with Met
+                        'met_retained': met_retained,        # Whether initial Met is retained
+                        'p1_position_aa': p1_aa,             # Amino acid at P1' position
+                        'has_initial_met': original_orf_seq.startswith('M'),  # Original sequence starts with Met
+                        'm_removed': original_orf_seq.startswith('M') and not met_retained  # Whether M was removed
                     })
             start_positions = []  # Reset start positions after stop codon
     
@@ -162,6 +181,7 @@ def process_fasta_file(input_file, output_csv):
     results = []
     met_retention_count = 0
     total_orfs_with_met = 0
+    m_removed_count = 0
     
     for header, sequence in sequences.items():
         orfs = find_orfs_six_frame(sequence)
@@ -170,30 +190,35 @@ def process_fasta_file(input_file, output_csv):
                 total_orfs_with_met += 1
                 if orf['met_retained']:
                     met_retention_count += 1
+                if orf['m_removed']:
+                    m_removed_count += 1
             
             results.append({
                 'header': header.strip(),
                 'protein_sequence': orf['protein_sequence'],
                 'dna_sequence': orf['dna_sequence'],
-                'length': orf['length'],
+                'original_length': orf['original_length'],
+                'processed_length': orf['processed_length'],
                 'frame': orf['frame'],
                 'direction': orf['direction'],
                 'dna_coords': f"{orf['dna_start']}-{orf['dna_end']}",
                 'met_retained': orf['met_retained'],
                 'p1_position_aa': orf['p1_position_aa'],
-                'has_initial_met': orf['has_initial_met']
+                'has_initial_met': orf['has_initial_met'],
+                'm_removed': orf['m_removed']
             })
     
     # Write results to CSV
     with open(output_csv, 'w') as outfile:
-        outfile.write("Header,Protein_Sequence,DNA_Sequence,Length_AA,Frame,Direction,DNA_Coordinates,Has_Initial_Met,P1_Position_AA,Met_Retained\n")
+        outfile.write("Header,Protein_Sequence,DNA_Sequence,Original_Length_AA,Processed_Length_AA,Frame,Direction,DNA_Coordinates,Has_Initial_Met,P1_Position_AA,Met_Retained,M_Removed\n")
         for result in results:
-            outfile.write(f"{result['header']},{result['protein_sequence']},{result['dna_sequence']},{result['length']},{result['frame']},{result['direction']},{result['dna_coords']},{result['has_initial_met']},{result['p1_position_aa']},{result['met_retained']}\n")
+            outfile.write(f"{result['header']},{result['protein_sequence']},{result['dna_sequence']},{result['original_length']},{result['processed_length']},{result['frame']},{result['direction']},{result['dna_coords']},{result['has_initial_met']},{result['p1_position_aa']},{result['met_retained']},{result['m_removed']}\n")
     
     # Print summary with Met retention information
     print(f"Processed {len(sequences)} sequences, found {len(results)} ORFs")
     print(f"ORFs with initial Met: {total_orfs_with_met}")
     print(f"ORFs with retained Met (P1' = I/Y/E/R): {met_retention_count}")
+    print(f"ORFs with M removed (P1' ≠ I/Y/E/R): {m_removed_count}")
     print("Note: Initial Met residues are preserved when P1' position has bulky residues (Ile, Tyr, Glu, Arg); References: Protein N-terminal processing: substrate specificity of Escherichia coli and human methionine aminopeptidases. Biochemistry. 2010; 49(26): 5588–99. https://doi.org/10.1021/bi1005464")
     
     return results
@@ -202,9 +227,5 @@ def process_fasta_file(input_file, output_csv):
 if __name__ == "__main__":
     input_fasta = "your_input_sequence.fasta"  # Replace with your input file
     output_file = "orf_results.csv"  # Replace with your output file
-    
+   
     results = process_fasta_file(input_fasta, output_file)
-
-
-
-
