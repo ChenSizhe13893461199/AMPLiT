@@ -141,6 +141,8 @@ def extract_orfs_from_protein(original_sequence, protein_seq, frame, direction, 
 
 def process_fasta_file(input_file, output_csv):
     """Process FASTA file and extract ORFs with Met retention analysis"""
+    # Note: Initial Met residues are preserved when P1' position has bulky residues (Ile, Tyr, Glu, Arg).
+    # References: Protein N-terminal processing: substrate specificity of Escherichia coli and human methionine aminopeptidases. Biochemistry. 2010; 49(26): 5588–99. https://doi.org/10.1021/bi1005464
     sequences = {}
     current_header = ""
     
@@ -200,5 +202,6 @@ if __name__ == "__main__":
     output_file = "orf_results.csv"  # Replace with your output file
     
     results = process_fasta_file(input_fasta, output_file)
+
 
 
