@@ -47,9 +47,9 @@ def extract_dna_sequence(full_sequence, start_pos, end_pos, direction):
     if direction == 'forward':
         return full_sequence[start_pos:end_pos]
     else:  # reverse
-        # For reverse strand, extract from original sequence and return as is
-        # The coordinates are already adjusted for the reverse complement
-        return full_sequence[start_pos:end_pos]
+        # For reverse strand, extract and return reverse complement
+        extracted = full_sequence[start_pos:end_pos]
+        return reverse_complement(extracted)
 
 def find_orfs_six_frame(sequence, min_aa_length=11, max_aa_length=50):
     """Find all ORFs using six-frame translation approach"""
@@ -88,15 +88,15 @@ def extract_orfs_from_protein(original_sequence, protein_seq, frame, direction, 
                     orf_seq = protein_seq[start:i]
                     
                     # Calculate DNA coordinates
-                    dna_start = start * 3 + frame
-                    dna_end = i * 3 + frame + 3  # Include stop codon
-                    
-                    if direction == 'reverse':
+                    if direction == 'forward':
+                        dna_start = start * 3 + frame
+                        dna_end = i * 3 + frame + 3  # Include stop codon
+                    else:  # reverse
                         # For reverse strand, adjust coordinates to original sequence
                         seq_len = len(original_sequence)
-                        dna_start_rev = seq_len - (start * 3 + frame + 3)
-                        dna_end_rev = seq_len - (i * 3 + frame)
-                        dna_start, dna_end = dna_start_rev, dna_end_rev
+                        # Corrected coordinate calculation
+                        dna_start = seq_len - (i * 3 + frame + 3)  # End position in original
+                        dna_end = seq_len - (start * 3 + frame)    # Start position in original
                     
                     # Extract DNA sequence
                     dna_sequence = extract_dna_sequence(original_sequence, dna_start, dna_end, direction)
@@ -129,8 +129,7 @@ def process_fasta_file(input_file, output_csv):
                 current_header = line
                 sequences[current_header] = ""
             else:
-                if "N" not in line.upper():  # Skip lines with ambiguous bases
-                    sequences[current_header] += line.upper()
+                sequences[current_header] += line.upper()
     
     # Process each sequence and find ORFs
     results = []
@@ -162,3 +161,4 @@ if __name__ == "__main__":
     output_file = "orf_results.csv"  # Replace with your output file
     
     results = process_fasta_file(input_fasta, output_file)
+
