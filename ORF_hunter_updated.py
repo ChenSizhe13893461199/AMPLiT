@@ -4,7 +4,6 @@ Created on Tue Oct 28 19:53:17 2025
 
 Updated ORF prediction - An Improved version
 """
-
 import os
 
 # Standard genetic code
@@ -97,7 +96,7 @@ def find_orfs_six_frame(sequence, min_aa_length=11, max_aa_length=50):
     return all_orfs
 
 def extract_orfs_from_protein(original_sequence, protein_seq, frame, direction, min_length, max_length):
-    """Extract ORFs from translated protein sequence - IMPROVED VERSION"""
+    """Extract ORFs from translated protein sequence - ONLY WITH STOP CODONS"""
     orfs = []
     start_positions = []
     
@@ -158,52 +157,10 @@ def extract_orfs_from_protein(original_sequence, protein_seq, frame, direction, 
                         'm_removed': original_orf_seq.startswith('M') and not met_retained
                     })
             
-            # CRITICAL FIX: Only remove the starts that were used, not all starts
             # Remove only the start positions that are before this stop codon
             start_positions = [start for start in start_positions if start > i]
     
-    # IMPORTANT: Also check for ORFs that continue until the end of sequence (no stop codon)
-    for start in start_positions:
-        orf_length = len(protein_seq) - start
-        if min_length <= orf_length <= max_length:
-            original_orf_seq = protein_seq[start:]
-            
-            met_retained, p1_aa = check_met_retention(original_orf_seq)
-            processed_protein_seq = process_protein_sequence(original_orf_seq, met_retained)
-            processed_length = len(processed_protein_seq)
-            
-            if direction == 'forward':
-                dna_start = start * 3 + frame
-                dna_end = len(original_sequence)  # Go to end of sequence
-            else:
-                seq_len = len(original_sequence)
-                dna_start = seq_len - (len(protein_seq) * 3 + frame)
-                dna_end = seq_len - (start * 3 + frame)
-            
-            dna_start = max(0, dna_start)
-            dna_end = min(len(original_sequence), dna_end)
-            if dna_start >= dna_end:
-                continue
-                
-            dna_sequence = extract_dna_sequence(original_sequence, dna_start, dna_end, direction)
-            
-            orfs.append({
-                'original_protein_sequence': original_orf_seq,
-                'protein_sequence': processed_protein_seq,
-                'dna_sequence': dna_sequence,
-                'original_length': orf_length,
-                'processed_length': processed_length,
-                'frame': frame,
-                'direction': direction,
-                'protein_start': start,
-                'protein_end': len(protein_seq),
-                'dna_start': dna_start,
-                'dna_end': dna_end,
-                'met_retained': met_retained,
-                'p1_position_aa': p1_aa,
-                'has_initial_met': original_orf_seq.startswith('M'),
-                'm_removed': original_orf_seq.startswith('M') and not met_retained
-            })
+    # REMOVED: Processing of ORFs without stop codons (extending to sequence end)
     
     return orfs
 
@@ -270,3 +227,4 @@ if __name__ == "__main__":
     output_file = "orf_results_improved.csv"  # Replace with your output file
    
     results = process_fasta_file(input_fasta, output_file)
+
