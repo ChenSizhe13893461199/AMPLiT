@@ -92,6 +92,7 @@ Finally, by integration of all 3 computational blocks, our framework was deploye
 For more details on the previous tool AMPidentifier 1.0 (https://github.com/ChenSizhe13893461199/Fast-AMPs-Discovery-Projects), please refer to our previously published article: 
 
 [1] Sizhe Chen#, Huitang Qi#, Xingzhuo Zhu#, Tianxiang Liu, Yutin Fan, Qi Su, Qiuyu Gong*, Cangzhi Jia*, Tian Liu*. Screening and identification of antimicrobial peptides from the gut microbiome of cockroach _Blattella germanica_. **_Microbiome_** 2024, 12: 272. doi: **10.1186/s40168-024-01985-9**
+
 [2] Sizhe Chen#, Yue Yuan#, Yun Wang, Ye Peng, Hein Tun, Yinglei Miao, Sunjae Lee, Xiaole Yin, Orlando DeLeon, Eugene Chang, Francis Chan Ka Leung, Yang Sun*, Siew Chien Ng*, Qi Su*. Ancient gut microbiome harbors unexplored antimicrobial peptides. **_Nature Communications_** 2025. (To be published)
 
 ### Brief Introduction of Developers
