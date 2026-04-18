@@ -93,11 +93,4 @@ For more details on the previous tool AMPidentifier 1.0 (https://github.com/Chen
 
 [1] Sizhe Chen#, Huitang Qi#, Xingzhuo Zhu#, Tianxiang Liu, Yutin Fan, Qi Su, Qiuyu Gong*, Cangzhi Jia*, Tian Liu*. Screening and identification of antimicrobial peptides from the gut microbiome of cockroach _Blattella germanica_. **_Microbiome_** 2024, 12: 272. doi: **10.1186/s40168-024-01985-9**
 
-[2] Sizhe Chen#, Yue Yuan#, Yun Wang, Ye Peng, Hein Tun, Yinglei Miao, Sunjae Lee, Xiaole Yin, Orlando DeLeon, Eugene Chang, Francis Chan Ka Leung, Yang Sun*, Siew Chien Ng*, Qi Su*. Ancient gut microbiome harbors unexplored antimicrobial peptides. **_Nature Communications_** 2025. (To be published)
-
-### Brief Introduction of Developers
-#### Developer Introduction
-
-**Sizhe Chen**, PhD (Medical Sciences) at Chinese University of Hong Kong (1155202847@link.cuhk.edu.hk). Supervisor: **Professor CHAN Ka Leung Francis**, **Professor Siew N.G.**, **Research Assistant Professor Qi Su**, and **Professor Yang Sun**. Welcome to contact **Sizhe Chen** via the aforementioned email if you have any questions or suggestions.
-
-This work is supervised by **Professor Siew N.G.**, **Professor Yang Sun**, and **Research Assistant Professor Qi Su**. The research work is primarily finished by **Sizhe Chen** (PhD student) and **Yue Yuan** (MPhil student) with equal contributions.
+[2] Sizhe Chen#, Yue Yuan#, Yun Wang, Ye Peng, Hein Tun, Yinglei Miao, Sunjae Lee, Xiaole Yin, Orlando DeLeon, Eugene Chang, Francis Chan Ka Leung, Yang Sun*, Siew Chien Ng*, Qi Su*. Ancient gut microbiome harbors unexplored antimicrobial peptides. **_Nature Communications_** 2026, 17, 1788. doi:**10.1038/s41467-026-68495-0**
